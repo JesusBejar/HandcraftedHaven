@@ -1,5 +1,6 @@
-import LoginForm from '@/app/ui/login-form';
+import LoginForm from '../ui/login-form';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
@@ -28,7 +29,9 @@ export default function LoginPage() {
 
     <p className="mt-10 text-center text-sm text-gray-500">
       Not a member?
-      <a href="#" className="font-semibold leading-6"> Create your account</a>
+      <Link href="/signup">
+      Create your account
+      </Link>
     </p>
   </div>
 
