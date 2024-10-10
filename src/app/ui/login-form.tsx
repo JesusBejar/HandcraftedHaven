@@ -7,28 +7,22 @@ import React, { useState } from "react";
 export default function LoginForm() {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
   
   
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email, password)
+    setErrorMessage(null);
     try {
       const res = await axios.post("/api/login", { email, password });
-      console.log("Response:", res.data); 
       
-      if (res.data.success) {
-        
-        
-        console.log("Redirecting to /home");
+      if (res.data.success) {                
         await router.push('/home');
-        
-      } else {
-        
-        console.log("Login failed:", res.data.msg);
       }
+
     } catch (err) {
-      console.error("Error:", err);
+      setErrorMessage("Login failed. Please check your email and password.");
     }
   }  
     return (
@@ -52,7 +46,9 @@ export default function LoginForm() {
             required className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-900 sm:text-sm sm:leading-6"/>
           </div>
         </div>
-  
+        {errorMessage && (
+        <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+      )}
         <div>
           <button type="submit" className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
         </div>
