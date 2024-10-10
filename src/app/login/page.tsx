@@ -28,7 +28,7 @@ export default function LoginPage() {
     <LoginForm />
 
     <p className="mt-10 text-center text-sm text-gray-500">
-      Not a member?
+      Not a member?{" "} 
       <Link href="/signup">
       Create your account
       </Link>
