@@ -1,12 +1,15 @@
 # HandcraftedHaven
-WDD430 Team project
+WDD430 Team Project
 TEAM MEMBERS:
+
 Kalina Warner
 Alyssa Kucharyski
 Marcos Antunes
 Jose Albancado
 Terence Borjal
 Jesus Israel Bejar 
+
+
 DESCRIPTION:
 Handcrafted Haven is an innovative web application that aims to provide a platform for artisans and 
 crafters to showcase and sell their unique handcrafted items. It serves as a virtual marketplace, 
