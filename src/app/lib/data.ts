@@ -5,7 +5,7 @@ import {Product} from './definitions'
 import { unstable_noStore as noStore } from 'next/cache';
 
 
-console.log(process.env.POSTGRES_URL)
+console.log(process.env.MONGODB_URI)
 export async function fetchProducts() {
   noStore()
     try {
