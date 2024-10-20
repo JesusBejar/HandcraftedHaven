@@ -25,11 +25,11 @@ export async function POST(req: Request)
     if(!user) {
         return NextResponse.json({ msg: "Invalid credentials"}, { status: 409 })
     }
-    /*const matchPassword = await bcrypt.compare(password, user.password)
+    const matchPassword = await bcrypt.compare(password, user.password)
     if(!matchPassword)
     {
         return NextResponse.json({ msg: "Wrong email or password"}, { status: 401})
-    } */
+    } 
     const name = user.username;
     if(user.password != password)
     {
