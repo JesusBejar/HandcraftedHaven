@@ -1,7 +1,8 @@
+// pages/api/logout.ts
+import { NextResponse } from "next/server";
 
-export async function userLogout(req: { logOut: () => void; }, res: { clearCookie: (arg0: string) => void; redirect: (arg0: string) => any; }){
-    res.clearCookie("token");
-    req.logOut();
-    console.log('Success! User logged out.');
-    return res.redirect('/')
+export async function POST() {
+  const response = NextResponse.json({ message: "Logged out successfully" });
+  response.cookies.set("token", "", { expires: new Date(0) }); // Clear cookie
+  return response;
 }
