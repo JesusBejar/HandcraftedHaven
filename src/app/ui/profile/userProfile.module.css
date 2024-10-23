@@ -1,26 +1,36 @@
-.profileContainer {
+.profilePage {
+    max-width: 800px; /* Sets a maximum width for the profile page */
+    margin: 20px auto; /* Centers the profile page */
+    padding: 20px; /* Adds padding around the page */
+  }
+  
+  .profileTitle {
+    text-align: center; /* Centers the title */
+    font-size: 28px; /* Sets a larger font size for the title */
+    margin-bottom: 20px; /* Adds space below the title */
+    color: #333; /* Sets a dark color for the title */
+  }
+  
+  .profileContainer {
     display: flex;
-    align-items: flex-start; /* Align items at the top */
-    padding: 1em;
-    background-color: #f0f3f5; /* Adjust as necessary */
-  }
-  
-  .profilePictureWrapper {
-    margin-right: 1.5em; /* Space between the picture and text */
-  }
-  
-  .profilePicture {
-    width: 100px; /* Fixed size for the profile picture */
-    height: 100px;
-    border-radius: 50%; /* Circular profile picture */
+    align-items: center; /* Aligns items vertically */
+    background-color: white; /* Sets a white background */
+    border-radius: 8px; /* Adds rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    padding: 20px; /* Adds padding around the profile */
   }
   
   .profileDetails {
-    display: flex;
-    flex-direction: column; /* Arrange fields vertically */
+    flex: 1; /* Makes this div take the remaining space */
+  }
+  
+  .profileDetails h2 {
+    margin: 0; /* Removes default margin */
+    font-size: 24px; /* Sets a font size for the name */
   }
   
   .profileDetails p {
-    margin: 0.5em 0; /* Add some space between the lines */
+    margin: 5px 0; /* Adds a little space between paragraphs */
+    color: #333; /* Sets a dark color for the text */
   }
   

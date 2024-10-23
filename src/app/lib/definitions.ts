@@ -12,3 +12,11 @@ export type User = {
     isSeller: boolean;
     categories?: string[]; //how will categories be added?
   }
+
+  export type Comment = {
+    id: string;
+    userId: string;
+    productId: string;
+    comment: string;
+    rating: number; // Rating from 1 to 5
+  };
