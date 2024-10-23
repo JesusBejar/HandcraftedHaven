@@ -1,0 +1,26 @@
+.profileContainer {
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+    padding: 1em;
+    background-color: #f0f3f5; /* Adjust as necessary */
+  }
+  
+  .profilePictureWrapper {
+    margin-right: 1.5em; /* Space between the picture and text */
+  }
+  
+  .profilePicture {
+    width: 100px; /* Fixed size for the profile picture */
+    height: 100px;
+    border-radius: 50%; /* Circular profile picture */
+  }
+  
+  .profileDetails {
+    display: flex;
+    flex-direction: column; /* Arrange fields vertically */
+  }
+  
+  .profileDetails p {
+    margin: 0.5em 0; /* Add some space between the lines */
+  }
+  
