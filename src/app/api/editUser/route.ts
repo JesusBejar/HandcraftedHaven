@@ -3,7 +3,7 @@ import dbConnect from '@/src/db/db';
 import User from '@/src/models/userModels';
 import bcrypt from 'bcrypt'; 
 
-export async function PUT(req: Request) {
+export async function EditUser(req: Request) {
     try {
         await dbConnect();
 
