@@ -4,7 +4,7 @@ const starSchema = new mongoose.Schema({
     productId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'products', // reference to Product model
+        ref: 'Product', // reference to Product model
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
