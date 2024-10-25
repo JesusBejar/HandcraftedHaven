@@ -24,6 +24,7 @@ export default function LoginForm() {
         localStorage.setItem("username", res.data.username);
       }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setErrorMessage("Login failed. Please check your email and password.");
     } finally {

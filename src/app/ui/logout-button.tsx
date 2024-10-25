@@ -22,6 +22,7 @@ export default function LogoutButton() {
 
       // Redirect to login page
       router.push("/login");
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setErrorMessage("Logout failed. Please try again.");
     } finally {

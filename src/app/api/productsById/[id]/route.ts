@@ -49,6 +49,7 @@ export async function GET(req: Request, context: { params?: { id?: string } }) {
       }
   
       return NextResponse.json({ msg: 'Product updated successfully', product: updatedProduct }, { status: 200 });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       return NextResponse.json({ msg: 'Failed to update product'}, { status: 500 });
     }

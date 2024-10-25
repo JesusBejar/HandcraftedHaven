@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import dbConnect from '@/src/db/db';
 import User from '@/src/models/userModels';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
 
+// eslint-disable-next-line no-var
 declare var process : {
     env: {
       ACCESS_TOKEN_SECRET: string
