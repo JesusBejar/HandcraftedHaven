@@ -8,22 +8,28 @@ export default function LoginForm() {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   
   
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage(null);
+    setIsLoading(true);
     try {
       const res = await axios.post("/api/login", { email, password });
       
       if (res.data.success) {                
         await router.push('/home');
+        localStorage.setItem("username", res.data.username);
       }
 
     } catch (err) {
       setErrorMessage("Login failed. Please check your email and password.");
+    } finally {
+      setIsLoading(false); // Stop loading
     }
+    
   }  
     return (
         <form className="space-y-6" onSubmit={onSubmit}>
@@ -50,7 +56,7 @@ export default function LoginForm() {
         <p className="text-red-500 text-sm text-center">{errorMessage}</p>
       )}
         <div>
-          <button type="submit" className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+          <button type="submit"  disabled={isLoading} className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isLoading ? 'Loading...' : 'Sign in'}</button>
         </div>
       </form>
     );
