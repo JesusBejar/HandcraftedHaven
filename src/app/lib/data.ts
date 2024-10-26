@@ -97,4 +97,4 @@ export async function addProduct(newProduct: Product): Promise<Product> {
       throw new Error(`Failed to add product. ${error}`);
     }
   }
-  s
+  
