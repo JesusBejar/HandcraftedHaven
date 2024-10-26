@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import dbConnect from '@/src/db/db';
 import Product from '@/src/models/productModels';
 
+
 // GET method to fetch all products
-export async function GET(req: Request) {
+export async function GET (req: Request) {
   try {
     // Connect to the database
     await dbConnect();
