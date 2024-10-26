@@ -9,7 +9,7 @@ import { deleteProduct } from "../lib/data";
 export default function ProductList({
   fetchedproducts,
 }: {
-  fetchedproducts: Product[];
+  fetchedproducts: Product[]; 
 }) {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>(fetchedproducts);
