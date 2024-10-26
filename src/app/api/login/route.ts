@@ -25,16 +25,16 @@ export async function POST(req: Request)
     if(!user) {
         return NextResponse.json({ msg: "Invalid credentials"}, { status: 409 })
     }
-    /*const matchPassword = await bcrypt.compare(password, user.password)
+    const matchPassword = await bcrypt.compare(password, user.password)
     if(!matchPassword)
     {
         return NextResponse.json({ msg: "Wrong email or password"}, { status: 401})
-    } */
+    }
     const name = user.username;
-    if(user.password != password)
+    /*if(user.password != password)
     {
         return NextResponse.json({ msg: "Wrong email or password"}, { status: 401})
-    }
+    }*/
 
     const token = jwt.sign({ name, email}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 });
     const response = NextResponse.json({msg: "User logged in", success: true, username: name}, { status: 201})
