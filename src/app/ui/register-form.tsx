@@ -21,12 +21,15 @@ export default function RegisterForm() {
   
   
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    const sellerDetails = isSeller ? {businessName, sellerCategory, sellerDescription} : null;
+   
     e.preventDefault();
     setErrorMessage(null);
-    setIsLoading(true);
+    setIsLoading(true); 
+    const sellerDetails = isSeller ? {businessName, sellerCategory, sellerDescription} : null;
     try {
-      const res = await axios.post("/api/register", {username, email, password , profilePic, profileDescription, sellerDetails});
+      console.log({username, email, password , profilePic, profileDescription, sellerDetails});
+      
+      const res = await axios.post("/api/addNewUser", {username, email, password , profilePic, profileDescription, sellerDetails});
       
       if (res.data.success) {                
         await router.push('/login');
@@ -53,18 +56,8 @@ export default function RegisterForm() {
                 type="text" 
                 value={username}
                 onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
-            const newUsername = e.target.value;
-            setUsername(newUsername);
-            // try {
-            //   const res = await axios.post("/api/check-username", { username: newUsername });
-            //   if (!res.data.available) {
-            //     setErrorMessage("Username is already taken.");
-            //   } else {
-            //     setErrorMessage(null);
-            //   }
-            // } catch (err) {
-            //   setErrorMessage("Error checking username availability.");
-            // }
+                  const newUsername = e.target.value;
+                  setUsername(newUsername);
                 }}
                 required 
                 className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-900 sm:text-sm sm:leading-6"
@@ -80,7 +73,17 @@ export default function RegisterForm() {
             required className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-900 sm:text-sm sm:leading-6"/>
           </div>
         </div> 
-
+        <div>
+          <div className="flex items-center justify-between">
+            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
+          </div>
+          <div className="mt-2">
+            <input id="password" name="password" type="password" 
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            required className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-900 sm:text-sm sm:leading-6"/>
+          </div>
+        </div>
         <div>
           <label htmlFor="profilePic" className="block text-sm font-medium leading-6 text-gray-900 text-left">Profile Picture</label>
             <div className="mt-2 flex items-center">
@@ -125,11 +128,11 @@ export default function RegisterForm() {
             </div>
             </div>
         <div>
-          <label htmlFor="isSeller" className="block text-sm font-medium leading-6 text-gray-900 text-left">Are you a seller?</label>
-            <label htmlFor="isSeller" className="text-sm text-gray-900 pl-2"> Yes 
+          <p className="block text-sm font-medium leading-6 text-gray-900 text-left">Are you a seller?</p>
+            <label htmlFor="isSeller" className="text-sm text-gray-900 pl-2"> Yes </label>
             <input  id="isSeller" name="isSeller" type="checkbox" checked={isSeller}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIsSeller(e.target.checked)} 
-            className="h-4 w-4 text-cyan-900 border-gray-300 rounded focus:ring-cyan-900"/></label>
+            className="h-4 w-4 text-cyan-900 border-gray-300 rounded focus:ring-cyan-900"/>
         </div>
 
         {isSeller && (
@@ -163,17 +166,7 @@ export default function RegisterForm() {
           </>
         )}
 
-        <div>
-          <div className="flex items-center justify-between">
-            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
-          </div>
-          <div className="mt-2">
-            <input id="password" name="password" type="password" 
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-            required className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cyan-900 sm:text-sm sm:leading-6"/>
-          </div>
-        </div>
+        
         {errorMessage && (
         <p className="text-red-500 text-sm text-center">{errorMessage}</p>
       )}
