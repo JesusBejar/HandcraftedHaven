@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { fetchUser } from '../lib/mockData'; // Import your mock data
 import UserProfile from '../ui/profile/userProfile';
 import { User } from '../lib/definitions'; // Import the User type
-import styles from '../ui/profile/userProfile.module.css';
+import Comment from '../ui/comments/comment';
 
-const ProfilePage: React.FC = () => {
+export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -23,11 +23,10 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div className={styles.profilePage}>
-      <h1 className={styles.profileTitle}>Profile</h1>
+    <>
+      {/* <h1>Profile Page</h1> */}
       <UserProfile user={user} /> {/* Pass user data to UserProfile */}
-    </div>
+      <Comment comment={}>
+    </>
   );
 };
-
-export default ProfilePage;
