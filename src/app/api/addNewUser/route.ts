@@ -4,14 +4,8 @@ import dbConnect from '@/src/db/db';
 import User from '@/src/models/userModels';
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
- 
-declare var process : {
-    env: {
-      ACCESS_TOKEN_SECRET: string
-    }
-  }
- 
-export async function addNewUser(req: Request) {   
+
+export async function POST (req: Request) {   
     try {
         // Connect to the database
         await dbConnect();
@@ -20,7 +14,7 @@ export async function addNewUser(req: Request) {
         const body = await req.json();
         const {username, email, password, profile_img, profile_description, seller_details} = body; 
         // Validate input
-        if (!email || !password || !username || !profile_img || !profile_description || !seller_details) {
+        if (!email || !password || !username) {
             return NextResponse.json({ msg: "Please provide all required fields" }, { status: 400 });
         }
  

@@ -4,7 +4,7 @@ import User from '@/src/models/userModels';
 import bcrypt from 'bcrypt'; 
 // bcrypt is used to hash passwords
 // GET, get by user
-export async function GetById(req: Request) {
+export async function GET (req: Request) {
     try {
         // Connect to the database
         await dbConnect();
