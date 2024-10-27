@@ -22,6 +22,7 @@ export default function LoginForm() {
       if (res.data.success) {                
         await router.push('/profile');
         localStorage.setItem("username", res.data.username);
+        localStorage.setItem("_id", res.data.id);
       }
 
     } catch (err) {
