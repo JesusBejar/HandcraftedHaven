@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { fetchUser } from '../lib/mockData'; // Import your mock data
+import { fetchUser } from '../lib/mockData';
 import UserProfile from '../ui/profile/userProfile';
-import { User } from '../lib/definitions'; // Import the User type
-import Comment from '../ui/comments/comment';
+import CommentsList from '../ui/comments/commentsList'; //To test the comments
+import { User } from '../lib/definitions'; 
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -19,14 +19,13 @@ export default function ProfilePage() {
   }, []);
 
   if (!user) {
-    return <p>Loading...</p>; // Show loading state
+    return <p>Loading...</p>; // loading...
   }
 
   return (
     <>
-      {/* <h1>Profile Page</h1> */}
-      <UserProfile user={user} /> {/* Pass user data to UserProfile */}
-      <Comment comment={}>
+      <UserProfile user={user} />
+      <CommentsList /> {/* This is only for testing, meake sure you use it on card*/}
     </>
   );
 };

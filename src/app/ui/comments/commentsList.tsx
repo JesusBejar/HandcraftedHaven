@@ -1,8 +1,7 @@
 import React from 'react';
 import Comment from './comment';
-import { Comment as CommentType } from '../../lib/definitions';
 import { mockComments } from '../../lib/mockComment';
-const CommentsList: React.FC = () => {
+export default function CommentsList () {
   return (
     <div>
       {mockComments.length > 0 ? (
@@ -15,5 +14,3 @@ const CommentsList: React.FC = () => {
     </div>
   );
 };
-
-export default CommentsList;

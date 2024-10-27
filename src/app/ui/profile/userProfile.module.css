@@ -1,31 +1,54 @@
-.profileTitle {
-  text-align: right; /* Centers the title */
-  font-size: 38px; /* Sets a larger font size for the title */
-  color: #333; /* Sets a dark color for the title */
-}
-
 .profileContainer {
   display: flex;
-  background-color: #999; /* Sets a white background */
-  border-radius: 8px; /* Adds rounded corners */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /*  Adds a subtle shadow */
-  padding: 10px; /* Adds padding around the profile */
+  flex-direction: column; 
+  background-color: #999; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  padding: 10px; 
+  width: 100%; 
+  max-width: 600px; 
+  margin: 0 auto; 
 }
 
-.profilePictureWrapper{
-  align-items: left;
+.profilePictureWrapper {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  margin-bottom: 10px; 
 }
 
 .profileDetails {
-  flex: 1; /* Makes this div take the remaining space */
-  text-align: right;
+  flex: 1; 
+  text-align: center; 
+  padding: 10px; 
 }
 
 .profileDetails h1 {
-  font-size: 18px; /* Sets a font size for the name */
+  font-size: 20px; 
+  margin: 10px 0;
 }
 
 .profileDetails p {
-  margin: 5px 0; /* Adds a little space between paragraphs */
-  color: #333; /* Sets a dark color for the text */
+  margin: 5px 0;
+  color: #333; 
+}
+
+/* larger screens */
+@media (min-width: 768px) {
+  .profileContainer {
+    flex-direction: row; /* Align elements side by side on larger screens */
+    padding: 20px; 
+  }
+
+  .profilePictureWrapper {
+    align-items: flex-start; 
+  }
+
+  .profileDetails {
+    text-align: left; 
+  }
+
+  .profileDetails h1 {
+    font-size: 24px; 
+  }
 }

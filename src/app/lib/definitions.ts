@@ -15,6 +15,7 @@ export type User = {
 
   export type Comment = {
     id: string;
+    userName: string;
     userId: string;
     productId: string;
     comment: string;
