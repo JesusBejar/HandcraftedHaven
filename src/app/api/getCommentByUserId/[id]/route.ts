@@ -4,23 +4,23 @@ import Comment from '@/src/models/commentModels';
 import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
-// Get comments by product ID (artworkId)
+// Get comments by userId
 export async function GET(req: Request, context: { params?: { id?: string } }) {
   try {
     await dbConnect();
 
-    const productId = context.params?.id;
-    console.log(productId);
+    const userId = context.params?.id;
+    console.log(userId);
 
-   // Check if productId is provided and valid
-   if (!productId || !mongoose.Types.ObjectId.isValid(productId)) {
-    return NextResponse.json({ msg: 'Invalid or missing artworkId' }, { status: 400 });
+   // Check if userId is provided and valid
+   if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+    return NextResponse.json({ msg: 'Invalid or missing userId' }, { status: 400 });
   }
 
-    // Find comments by product ID
-    const comments = await Comment.find({ productId });
+    // Find comments by userId
+    const comments = await Comment.find({ userId });
     if (comments.length === 0) {
-      return NextResponse.json({ msg: 'No comments found for this product' }, { status: 404 });
+      return NextResponse.json({ msg: 'No comments found for this user' }, { status: 404 });
     }
 
     return NextResponse.json({ comments }, { status: 200 });
