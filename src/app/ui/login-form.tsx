@@ -20,7 +20,7 @@ export default function LoginForm() {
       const res = await axios.post("/api/login", { email, password });
       
       if (res.data.success) {                
-        await router.push('/home');
+        await router.push('/profile');
         localStorage.setItem("username", res.data.username);
       }
 
