@@ -32,13 +32,13 @@ export default function UserProfile({ user }: UserProfileProps) {
       <div className={styles.profileDetails}>
         {user.isSeller ? (
           <>
-            <h1 className='font-bold'>{user.business_name}</h1>
+            <h1>{user.business_name}</h1>
             <p>Email: {user.email}</p>
             <p>Description: {user.bus_description}</p>
           </>
         ) : (
           <>
-            <h1 className='font-bold'>{user.username}</h1>
+            <h1>{user.username}</h1>
             <p>Email: {user.email}</p>
             <p>No seller tag</p>
           </>
