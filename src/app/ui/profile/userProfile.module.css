@@ -52,3 +52,18 @@
     font-size: 24px; 
   }
 }
+.sellerTag {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 12px;
+  margin-left: 5px; /* Space between text and tag */
+}
+
+.buyerTag {
+  background-color: #2196F3; /* Blue */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 12px;
+  margin-left: 5px; /* Space between text and tag */
+}
