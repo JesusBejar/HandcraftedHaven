@@ -37,7 +37,7 @@ export default function Comment({ comment, loggedInUserId, onEdit, onDelete }: C
         <>
           <p className={styles.commentText}>{commentText}</p>
           <p className={styles.commentText}>Rating: {comment.rating}</p>
-          <p className={styles.commentText}>User: {comment.userName}</p>
+          <p className={styles.commentText}>User: {comment.username}</p>
           <p className={styles.commentText}>
             Created on: {new Date(createdAt).toLocaleDateString()}
             {updatedAt && <span>, Updated on: {new Date(updatedAt).toLocaleDateString()}</span>}

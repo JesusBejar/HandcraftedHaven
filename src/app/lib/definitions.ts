@@ -19,7 +19,7 @@ export type User = {
 };
 export type Comment = {
   _id: string;
-  userName: string;
+  username: string;
   userId: string;
   productId: string;
   comment: string;
