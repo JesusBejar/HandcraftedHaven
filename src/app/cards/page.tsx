@@ -1,30 +1,68 @@
-import React from 'react';
-import Link from 'next/link';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import Card from './card-view/page';
 
 interface Card {
-  id: number;
-  title: string;
-  description: string;
-  imageUrl: string;
+    id: string;  
+    title: string;
+    price?: number; 
+    description: string;
+    imageUrl: string;
 }
 
-const cardData: Card[] = [];
+const CardsPage: React.FC = () => {
+    const [cardData, setCardData] = useState<Card[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-export default function cardsPage() {
-  return (
-    <div>
-      <h1>Cards</h1>
-      <div className="card-list">
-        {cardData.map((card) => (
-          <div key={card.id} className="card-item">
-            <h2>{card.title}</h2>
-            <p>{card.description}</p>
-            <Link href={`/cards/card-view/${card.id}`}>
-              <a>View Details</a>
-            </Link>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    useEffect(() => {
+        const fetchCards = async () => {
+            try {
+                const response = await fetch('/api/getAllProducts'); 
+                if (!response.ok) {
+                    throw new Error('Failed to fetch product data');
+                }
+
+                // Fetch product data from MongoDB and transform it
+                const data = await response.json();
+                const transformedData = data.map((product: any) => ({
+                    id: product._id,
+                    title: product.title,
+                    description: product.description,
+                    imageUrl: product.imageUrl,
+                    price: product.price || 0,  // Ensure `price` is set if needed
+                }));
+
+                setCardData(transformedData);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Unknown error');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCards();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    return (
+        <div style={{ padding: '20px' }}>
+            <h1>Products</h1>
+            <div className="card-list" style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {cardData.map((card) => (
+                    <Card key={card.id} {...card} />
+                ))}
+            </div>
+        </div>
+    );
 };
+
+export default CardsPage;
