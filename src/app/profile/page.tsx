@@ -1,16 +1,16 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import UserProfile from '../ui/profile/userProfile';
-import CommentsList from '../ui/comments/commentsList'; // To test the comments
+import CommentsList from '../ui/comments/commentsList';
 import { User, Comment } from '../lib/definitions';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
-  const [comments, setComments] = useState<Comment[]>([]); // Initialize as an empty array
+  const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userId = localStorage.getItem("_id"); // Get user ID from localStorage
+      const userId = localStorage.getItem("_id");
       if (!userId) {
         console.error("User ID not found in localStorage");
         return;
@@ -43,15 +43,13 @@ export default function ProfilePage() {
       }
     };
 
-    // only to show on product page
     const fetchComments = async () => {
-      const productId = '671b78e313fcb07b6b449243'; // Use the id for testing
+      const productId = '671b78e313fcb07b6b449243'; // Testing ID
       try {
         const response = await fetch(`/api/getCommentByProductId/${productId}`);
         const data = await response.json();
 
         if (data.comments) {
-          // Sort comments by created date
           const sortedComments = data.comments.sort((a: Comment, b: Comment) => {
             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
           });
@@ -68,14 +66,63 @@ export default function ProfilePage() {
     fetchComments();
   }, []);
 
+  const handleEdit = async (commentId: string, updatedComment: string) => {
+    try {
+      const response = await fetch(`/api/editComment/${commentId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ comment: updatedComment }),
+      });
+
+      const result = await response.json();
+      if (result.msg === 'Comment updated successfully') {
+        // Update the comments state with the new data
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment._id === commentId ? { ...comment, comment: updatedComment, updatedAt: new Date() } : comment
+          )
+        );
+      } else {
+        console.error(result.msg);
+      }
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+  };
+
+  const handleDelete = async (commentId: string) => {
+    try {
+      const response = await fetch(`/api/deleteComment/${commentId}`, {
+        method: 'DELETE',
+      });
+
+      const result = await response.json();
+      if (result.msg === 'Comment deleted successfully') {
+        // Update the comments state to remove the deleted comment
+        setComments((prevComments) => prevComments.filter(comment => comment._id !== commentId));
+      } else {
+        console.error(result.msg);
+      }
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
   if (!user) {
-    return <p>Loading...</p>; // loading...
+    return <p>Loading...</p>;
   }
 
   return (
     <>
       <UserProfile user={user} />
-      <CommentsList comments={comments} loggedInUserId={user._id} onEdit={() => {}} onDelete={() => {}} />
+      <CommentsList
+        comments={comments}
+        loggedInUserId={user._id}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
     </>
   );
 }

@@ -4,20 +4,20 @@ import styles from './comment.module.css';
 
 type CommentProps = {
   comment: CommentType;
-  loggedInUserId: string; // Pass the logged-in user's ID as a prop
-  onEdit: (commentId: string, updatedComment: string) => void; // Callback for edit action
-  onDelete: (commentId: string) => void; // Callback for delete action
+  loggedInUserId: string;
+  onEdit: (commentId: string, updatedComment: string) => void;
+  onDelete: (commentId: string) => void;
 };
 
 export default function Comment({ comment, loggedInUserId, onEdit, onDelete }: CommentProps) {
-  const { createdAt, updatedAt, comment: commentText } = comment; // Renaming for clarity
-  const isOwner = comment.userId === loggedInUserId; // Check if the logged-in user is the owner of the comment
+  const { createdAt, updatedAt, comment: commentText } = comment;
+  const isOwner = comment.userId === loggedInUserId;
   const [isEditing, setIsEditing] = useState(false);
-  const [editedComment, setEditedComment] = useState(commentText); // State for the edited comment
+  const [editedComment, setEditedComment] = useState(commentText);
 
   const handleSave = () => {
-    onEdit(comment._id, editedComment); // Call the edit callback with the updated comment
-    setIsEditing(false); // Exit edit mode
+    onEdit(comment._id, editedComment);
+    setIsEditing(false);
   };
 
   return (
@@ -37,7 +37,7 @@ export default function Comment({ comment, loggedInUserId, onEdit, onDelete }: C
         <>
           <p className={styles.commentText}>{commentText}</p>
           <p className={styles.commentText}>Rating: {comment.rating}</p>
-          <p className={styles.commentText}>User: {comment.userName}</p>
+          <p className={styles.commentText}>User: {comment.username}</p>
           <p className={styles.commentText}>
             Created on: {new Date(createdAt).toLocaleDateString()}
             {updatedAt && <span>, Updated on: {new Date(updatedAt).toLocaleDateString()}</span>}

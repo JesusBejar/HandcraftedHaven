@@ -18,6 +18,7 @@ export async function GET(req: Request, context: { params?: { id?: string } }) {
 
     // Find comments by product ID
     const comments = await Comment.find({ productId: new mongoose.Types.ObjectId(productId) }); // Convert productId to ObjectId
+    
     if (comments.length === 0) {
       return NextResponse.json({ msg: 'No comments found for this product' }, { status: 404 });
     }

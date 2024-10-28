@@ -15,7 +15,24 @@ export async function PUT(req: Request, context: { params?: { id?: string } }) {
         }
 
         const updatedData = await req.json();
-        const { profile_description, seller_details } = updatedData;
+
+         // Define allowed fields
+         const allowedFields = ['profile_img, profile_description', 'seller_details'];
+
+         // Check for unexpected fields
+         const extraFields = Object.keys(updatedData).filter(
+             (field) => !allowedFields.includes(field)
+         );
+ 
+         if (extraFields.length > 0) {
+             return NextResponse.json(
+                 { msg: `Unexpected fields: ${extraFields.join(', ')}` },
+                 { status: 400 }
+             );
+         }
+
+        // Only allow specific fields to be updated
+        const { profile_img, profile_description, seller_details } = updatedData;
 
         // Find the existing user
         const existingUser = await User.findById(id);
@@ -23,15 +40,21 @@ export async function PUT(req: Request, context: { params?: { id?: string } }) {
             return NextResponse.json({ msg: 'User profile not found' }, { status: 404 });
         }
 
-        // Update fields if provided
+        if (profile_img !== undefined) {
+            existingUser.profile_img = profile_img;
+        }
+
+        // Update fields if provided and prevent adding extra fields
         if (profile_description !== undefined) {
             existingUser.profile_description = profile_description;
         }
 
-        // Update seller details if provided
+      
+
+        // Update seller details if provided, ensuring only allowed fields are included
         if (seller_details) {
             existingUser.seller_details = {
-                ...existingUser.seller_details.toObject(),  // Retain existing fields
+                ...existingUser.seller_details.toObject(), // Retain existing fields
                 ...seller_details                           // Update only provided fields
             };
         }

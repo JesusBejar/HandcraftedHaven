@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const commentSchema = new mongoose.Schema({
-    artworkId: {
+    productId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Product', 
@@ -18,6 +18,12 @@ const commentSchema = new mongoose.Schema({
     comment: {
         type: String,
         required: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5,
     },
     createdAt: {
         type: Date,
