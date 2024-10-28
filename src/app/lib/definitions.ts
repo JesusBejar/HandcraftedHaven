@@ -17,11 +17,13 @@ export type User = {
   categories?: string[];
   is_seller: boolean;
 };
-  export type Comment = {
-    id: string;
-    userName: string;
-    userId: string;
-    productId: string;
-    comment: string;
-    rating: number; // Rating from 1 to 5
-  };
+export type Comment = {
+  _id: string;
+  userName: string;
+  userId: string;
+  productId: string;
+  comment: string;
+  rating: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
