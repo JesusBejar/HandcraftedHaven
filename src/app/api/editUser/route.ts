@@ -20,15 +20,23 @@ export async function PUT(req: Request) {
             return NextResponse.json({ msg: "User not found" }, { status: 404 });
         }
 
-        // Update fields if provided
+        // Update main fields if provided
         existingUser.username = username;
         existingUser.email = email;
         if (profile_img) existingUser.profile_img = profile_img;
         if (profile_description) existingUser.profile_description = profile_description;
 
-        // Update nested seller details if provided
+        // Unested seller details if provided
         if (seller_details) {
-            existingUser.seller_details.set(seller_details); // Use `.set` for nested updates
+            if (seller_details.category !== undefined) {
+                existingUser.seller_details.category = seller_details.category;
+            }
+            if (seller_details.business_name !== undefined) {
+                existingUser.seller_details.business_name = seller_details.business_name;
+            }
+            if (seller_details.bus_description !== undefined) {
+                existingUser.seller_details.bus_description = seller_details.bus_description;
+            }
         }
 
         // Update password if provided
