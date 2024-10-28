@@ -5,12 +5,11 @@ import { Comment as CommentType } from '../../lib/definitions';
 type CommentsListProps = {
   comments: CommentType[];
   loggedInUserId: string;
-  onEdit: (commentId: string) => void; // Function to handle editing
-  onDelete: (commentId: string) => void; // Function to handle deleting
+  onEdit: (commentId: string, updatedComment: string) => void;
+  onDelete: (commentId: string) => void;
 };
 
 export default function CommentsList({ comments = [], loggedInUserId, onEdit, onDelete }: CommentsListProps) {
-  
   return (
     <div>
       {comments.length > 0 ? (
@@ -19,8 +18,8 @@ export default function CommentsList({ comments = [], loggedInUserId, onEdit, on
             key={comment._id}
             comment={comment}
             loggedInUserId={loggedInUserId}
-            onEdit={() => onEdit(comment._id)} // Pass the comment ID to the edit handler
-            onDelete={() => onDelete(comment._id)} // Pass the comment ID to the delete handler
+            onEdit={onEdit}
+            onDelete={onDelete}
           />
         ))
       ) : (
