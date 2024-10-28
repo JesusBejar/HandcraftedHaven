@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import Card from './card-view/page';
 
 interface Card {
-    id: number;
+    id: string;  
     title: string;
-    price: number;
+    price?: number; 
     description: string;
     imageUrl: string;
 }
@@ -19,12 +19,22 @@ const CardsPage: React.FC = () => {
     useEffect(() => {
         const fetchCards = async () => {
             try {
-                const response = await fetch('/api/cards/cards'); 
+                const response = await fetch('/api/getAllProducts'); 
                 if (!response.ok) {
-                    throw new Error('Failed to fetch card data');
+                    throw new Error('Failed to fetch product data');
                 }
-                const data: Card[] = await response.json();
-                setCardData(data);
+
+                // Fetch product data from MongoDB and transform it
+                const data = await response.json();
+                const transformedData = data.map((product: any) => ({
+                    id: product._id,
+                    title: product.title,
+                    description: product.description,
+                    imageUrl: product.imageUrl,
+                    price: product.price || 0,  // Ensure `price` is set if needed
+                }));
+
+                setCardData(transformedData);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Unknown error');
             } finally {
@@ -45,7 +55,7 @@ const CardsPage: React.FC = () => {
 
     return (
         <div style={{ padding: '20px' }}>
-            <h1>Cards</h1>
+            <h1>Products</h1>
             <div className="card-list" style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {cardData.map((card) => (
                     <Card key={card.id} {...card} />
@@ -55,5 +65,4 @@ const CardsPage: React.FC = () => {
     );
 };
 
-console.log(Card)
 export default CardsPage;

@@ -4,9 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 
 interface CardProps {
-    id: number;
+    id: string; // Change from number to string to match MongoDB `_id`
     title: string;
-    price: number;
+    price?: number;
+    description: string;
     imageUrl: string;
 }
 
@@ -30,9 +31,10 @@ const Card: React.FC<CardProps> = ({ id, title, price, imageUrl }) => {
             />
             <h2>{title}</h2>
             <p>{price}</p>
-            <Link href={`/cards/card-view/${id}`}>
-                <a style={{ textDecoration: 'none', color: '#0070f3' }}>View Details</a>
-            </Link>
+            <Link href={`/cards/card-view/${id}`} style={{ textDecoration: 'none', color: '#0070f3' }}>
+    View Details
+</Link>
+
         </div>
     );
 };
