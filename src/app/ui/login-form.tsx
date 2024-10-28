@@ -20,8 +20,9 @@ export default function LoginForm() {
       const res = await axios.post("/api/login", { email, password });
       
       if (res.data.success) {                
-        await router.push('/home');
+        await router.push('/profile');
         localStorage.setItem("username", res.data.username);
+        localStorage.setItem("_id", res.data.id);
       }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -35,7 +36,7 @@ export default function LoginForm() {
     return (
         <form className="space-y-6" onSubmit={onSubmit}>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 text-left">Email address</label>
+          <label htmlFor="email" className="block text-sm font-medium leading-6z text-gray-900 text-left">Email address</label>
           <div className="mt-2">
             <input id="email" name="email" type="email" value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} 

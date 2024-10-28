@@ -2,16 +2,13 @@ import mongoose from 'mongoose';
 
 const sellerDetailsSchema = new mongoose.Schema({
     category: {
-        type: String,
-        required: true,
+        type: String
     },
     business_name: {
-        type: String,
-        required: true,
+        type: String
     },
     bus_description: {
-        type: String,
-        required: true,
+        type: String
     },
 });
 

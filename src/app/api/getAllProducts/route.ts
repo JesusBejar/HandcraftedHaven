@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from '@/src/db/db';
 import Product from '@/src/models/productModels';
 
+
 // GET method to fetch all products
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(req: Request) {
