@@ -3,16 +3,20 @@
 // For simplicity of teaching, we're manually defining these types.
 
 export type User = {
-    id: string;
-    username: string;
-    email: string;
-    password: string;
-    profile_img: string;
-    profile_description: string;
-    isSeller: boolean;
-    categories?: string[]; //how will categories be added?
-  }
-
+  _id: string;
+  username: string;
+  email: string;
+  profile_img: string;
+  profile_description?: string;
+  seller_details?: {
+    business_name?: string;
+    bus_description?: string;
+    category?: string;
+    _id?: string; // If you want to keep the seller_details _id
+  };
+  categories?: string[];
+  is_seller: boolean;
+};
   export type Comment = {
     id: string;
     userName: string;
