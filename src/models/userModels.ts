@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: '', 
     },
+    is_seller: {
+        type: Boolean,
+        required: true,
+    },
     seller_details: sellerDetailsSchema, 
 }, { timestamps: true }); 
 
