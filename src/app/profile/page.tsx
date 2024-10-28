@@ -2,16 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import UserProfile from '../ui/profile/userProfile';
 import CommentsList from '../ui/comments/commentsList'; // To test the comments
-import { User } from '../lib/definitions';
+import { User, Comment } from '../lib/definitions';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]); // Initialize as an empty array
 
   useEffect(() => {
     const fetchUser = async () => {
       const userId = localStorage.getItem("_id"); // Get user ID from localStorage
-      console.log('Holaa')
-      console.log(userId)
       if (!userId) {
         console.error("User ID not found in localStorage");
         return;
@@ -44,7 +43,29 @@ export default function ProfilePage() {
       }
     };
 
+    // only to show on product page
+    const fetchComments = async () => {
+      const productId = '671b78e313fcb07b6b449243'; // Use the id for testing
+      try {
+        const response = await fetch(`/api/getCommentByProductId/${productId}`);
+        const data = await response.json();
+
+        if (data.comments) {
+          // Sort comments by created date
+          const sortedComments = data.comments.sort((a: Comment, b: Comment) => {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          });
+          setComments(sortedComments);
+        } else {
+          console.error("No comments found for this product");
+        }
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+
     fetchUser();
+    fetchComments();
   }, []);
 
   if (!user) {
@@ -54,7 +75,7 @@ export default function ProfilePage() {
   return (
     <>
       <UserProfile user={user} />
-      <CommentsList /> {/* This is only for testing; make sure to use it on card */}
+      <CommentsList comments={comments} loggedInUserId={user._id} onEdit={() => {}} onDelete={() => {}} />
     </>
   );
 }
