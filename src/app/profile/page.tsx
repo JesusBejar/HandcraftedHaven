@@ -10,6 +10,8 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchUser = async () => {
       const userId = localStorage.getItem("_id"); // Get user ID from localStorage
+      console.log('Holaa')
+      console.log(userId)
       if (!userId) {
         console.error("User ID not found in localStorage");
         return;
@@ -25,11 +27,12 @@ export default function ProfilePage() {
         }
 
         setUser({
+          _id: data._id,
           username: data.username || '',
           email: data.email,
           profile_img: data.profile_img,
           profile_description: data.profile_description,
-          isSeller: data.is_seller,
+          is_seller: data.is_seller,
           categories: data.seller_details && data.seller_details.business_name 
               ? [data.seller_details.category] 
               : [],
