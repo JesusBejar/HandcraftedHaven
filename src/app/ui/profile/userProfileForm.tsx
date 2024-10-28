@@ -10,11 +10,6 @@ type UserProfileFormProps = {
 };
 
 
-type UserProfileFormProps = {
-    user: User;
-    onSubmit: (formData: any) => void;
-};
-
 const UserProfileForm: React.FC<UserProfileFormProps> = ({ user, onSubmit }) => {
     const [formData, setFormData] = useState({
         username: user.username,

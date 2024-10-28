@@ -46,7 +46,7 @@ export default function LoginPage() {
 
     <p className="mt-10 text-center text-sm text-gray-500">
       Not a member?{" "} 
-      <Link href="/signup">
+      <Link href="/register">
       Create your account
       </Link>
     </p>

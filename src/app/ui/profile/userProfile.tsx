@@ -17,7 +17,7 @@ export default function UserProfile({ user }: UserProfileProps) {
       <div className={styles.profilePictureWrapper}>
         <img
           src={user.profile_img}
-          alt={user.is_seller ? `${user.business_name}'s profile` : `${user.username}'s profile`}
+          alt={user.is_seller ? `${user.seller_details?.business_name}'s profile` : `${user.username}'s profile`}
           className={styles.profilePicture}
         />
         <Link href={`/profile/${user._id}/edit`}>
@@ -29,9 +29,9 @@ export default function UserProfile({ user }: UserProfileProps) {
       <div className={styles.profileDetails}>
         {user.is_seller ? (
           <>
-            <h1>{user.business_name}</h1>
+            <h1>{user.seller_details?.business_name}</h1>
             <p>Email: {user.email}</p>
-            <p>Description: {user.bus_description}</p>
+            <p>Description: {user.seller_details?.bus_description}</p>
           </>
         ) : (
           <>

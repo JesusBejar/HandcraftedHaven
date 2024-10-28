@@ -52,7 +52,7 @@ const EditProfilePage = ({ params }: { params: { id: string } }) => {
         <div>
             <h1>Edit Profile for {user?.username}</h1>
             {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error if it exists */}
-            <UserProfileForm user={user} onSubmit={handleUpdateUser} />
+            {user && <UserProfileForm user={user} onSubmit={handleUpdateUser} />}
         </div>
     );
 };
