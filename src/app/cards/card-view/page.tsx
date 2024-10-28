@@ -1,22 +1,40 @@
+'use client'
+
 import React from 'react';
+import Link from 'next/link';
 
-const cardData = [
-  { id: 1, title: 'Card 1', description: 'This is the first card.' },
-  { id: 2, title: 'Card 2', description: 'This is the second card.' },
-  { id: 3, title: 'Card 3', description: 'This is the third card.' },
-];
+interface CardProps {
+    id: number;
+    title: string;
+    price: number;
+    imageUrl: string;
+}
 
-export default function cardViewPage() {
-  const card = cardData.find((card) => card.id);
-
-  if (!card) {
-    return <p>Card not found!</p>;
-  }
-
-  return (
-    <div>
-      <h1>{card.title}</h1>
-      <p>{card.description}</p>
-    </div>
-  );
+const Card: React.FC<CardProps> = ({ id, title, price, imageUrl }) => {
+    return (
+        <div
+            className="card-item"
+            style={{
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                padding: '16px',
+                margin: '16px',
+                width: '250px',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                textAlign: 'center',
+            }}
+        >
+            <img
+                alt={title}
+                style={{ width: '100%', borderRadius: '4px' }}
+            />
+            <h2>{title}</h2>
+            <p>{price}</p>
+            <Link href={`/cards/card-view/${id}`}>
+                <a style={{ textDecoration: 'none', color: '#0070f3' }}>View Details</a>
+            </Link>
+        </div>
+    );
 };
+
+export default Card;
