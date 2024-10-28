@@ -1,12 +1,15 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import LoginComponent from './LoginComponent';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+
+import LogOutButton from '../ui/logout-button';
+import image from '../../../public/logo_handcraftedhaven.png';
+
 
 export default function Header() {
     const [isMobile, setIsMobile] = useState(false);
-    const location = useLocation();
-    const currentPath = location.pathname;
+    const currentPath = usePathname();
 
     useEffect(() => {
         const checkIsMobile = () => {
@@ -27,30 +30,31 @@ export default function Header() {
         setIsOpen(!isOpen);
     };
 
-    const responsiveFlex = { display: 'flex', flexDirection: isMobile ? 'column' : 'row' };
-
     const navLinks = [
         { path: '/', label: 'Home' },
-        { path: '/products', label: 'Products' },
+        { path: '/cards', label: 'Products' },
         { path: '/profile', label: 'Profile' }
     ];
 
     console.log(currentPath);
 
     return (
-        <header style={responsiveFlex}>
-            <h1>Handcrafted Heaven</h1>
-            {isMobile && <button onClick={toggleMenu} style={{ alignSelf: 'flex-end', backgroundColor: 'white' }}>
-                ☰
-            </button>}
+        <header style={ {display: 'flex', flexDirection: 'row'} }>
+            <Image src={image} alt="logo" style={{ width: '50px', height: '50px', margin: '10px' }} />
+            
             <nav style={{ display: isOpen || !isMobile ? 'block' : 'none', margin: '0 auto' }}>
-                <ul style={responsiveFlex}>
+                <ul style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
                     {navLinks.filter(link => link.path !== currentPath).map(link => (
                         <li key={link.path}><a href={link.path}>{link.label}</a></li>
                     ))}
                 </ul>
+                {isMobile &&  currentPath === '/login' || currentPath === '/register' ?'' :<div class='login-button' style={{minWidth: isMobile? '70px': '165'}}><LogOutButton /></div> }
             </nav>
-            { currentPath !== '/login' || currentPath !== '/register' && <LoginComponent /> }
+
+            { currentPath === '/login' || currentPath === '/register' ?'' : !isMobile?<div class='login-button' style={{minWidth: isMobile? '70px': '165'}}><LogOutButton /></div> : ''}
+            {isMobile && <button class='menu-button' onClick={toggleMenu} style={{ alignSelf: 'flex-end', backgroundColor: 'transparent', fontSize:'2em', position:'absolute', right: '20px'}}>
+                ☰
+            </button>}
         </header>
     );
 }

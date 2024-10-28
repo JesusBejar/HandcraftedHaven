@@ -145,6 +145,7 @@ p.colored {
 }
 nav {
   text-align: center;
+  transform:translateY(20px);
 }
 nav {
   list-style-type: none;
@@ -191,3 +192,8 @@ nav a:hover {
   border-top: 1px solid;
   border-right: 1px solid;
 }
+
+.login-button{
+  transform:translateY(10px);
+}
+
