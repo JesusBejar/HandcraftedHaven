@@ -52,7 +52,7 @@ export default function Home() {
     <div style={{ paddingTop: '60px', margin:'0 auto' }}>
       <h1 style={{ fontSize: '2em' }}>Welcome To Handcrafted Haven</h1>
       <p>Handcrafted Haven is a platform for artisans to showcase their work and sell their products. Here are some of our sellers. Click on their card to check out their page</p>
-      <div style={{ display: 'flex', flexWrap:'wrap', margin: '0 auto', flexDirection: isMobile? 'column' : 'row' , paddingTop:'20px', paddingBottom:'20px', columnCount: isMobile? 1:3}}>
+      <div style={{ display: 'flex', flexWrap:'wrap', margin: '0 auto', flexDirection: isMobile? 'column' : 'row' , paddingTop:'20px', paddingBottom:'20px', columnCount: isMobile? 1:3, alignItems:'center', alignContent:'center'}}>
       {sellers.map((seller) => (
       <SellerCard
         key={seller.seller_details.business_name}

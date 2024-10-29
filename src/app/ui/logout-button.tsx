@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 
-export default function LogoutButton({isLoggedIn}: {isLoggedIn: boolean}) {
+export default function LogoutButton() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -29,19 +29,15 @@ export default function LogoutButton({isLoggedIn}: {isLoggedIn: boolean}) {
       setIsLoading(false); // Stop loading
     }
   };
-  const handleLogin = () => {
-    router.push("/login");
-  }
-
 
   return (
     <div>
       <button
-        onClick={isLoggedIn? handleLogout: handleLogin } // Handle click event
+        onClick={handleLogout } // Handle click event
         disabled={isLoading} // Disable button when loading
         className="rounded py-2 px-4 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-        {isLoading ? 'Loading...' : isLoggedIn?'Logout':'Login'}
+        {isLoading ? 'Loading...' :'Logout'}
       </button>
 
       {/* Display error message if logout fails */}
