@@ -18,6 +18,6 @@ export async function POST(req: Request) {
         return NextResponse.json({ msg: 'Comment added successfully', comment: newComment }, { status: 201 });
     } catch (error) {
         console.error('Error adding comment:', error);
-        return NextResponse.json({ msg: 'Failed to add comment', error: error.message }, { status: 500 });
+        return NextResponse.json({ msg: 'Failed to add comment', error }, { status: 500 });
     }
 }
