@@ -4,6 +4,7 @@ import axios from "axios";
 import {useRouter} from 'next/navigation'
 import React, { useState } from "react";
 import Image from 'next/image'
+
 // @refresh reset 
 export default function RegisterForm() {
   const [email, setEmail] = useState<string>("")
@@ -29,10 +30,11 @@ export default function RegisterForm() {
     const bus_description = business_name;
     const seller_details = is_seller ? {business_name, bus_description, category} : null;
     const profile_img = profile_pic;
+
     try {
-      console.log({username, email, password , profile_img, profile_description, seller_details});
+      console.log({username, email, password, is_seller , profile_img, profile_description, seller_details});
       
-      const res = await axios.post("/api/addNewUser", {username, email, password , profile_img, profile_description, seller_details});
+      const res = await axios.post("/api/addNewUser", {username, email, password , is_seller, profile_img, profile_description, seller_details});
       
       if (res.data.success) {                
         await router.push('/login');
@@ -48,6 +50,23 @@ export default function RegisterForm() {
     }
     
   }  
+
+   function convertToBase64(e: React.ChangeEvent<HTMLInputElement>){
+      const files = e.target.files;
+      if (files && files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          set_profile_pic(reader.result as string);
+          console.log("Reader: ", reader.result);
+        }
+        reader.onerror = () => {
+          console.log("Error");
+        }
+      }
+    }
+   
     return (
     
         <form className="space-y-6 outline-1 shadow-md px-10 py-10 bg-white" onSubmit={onSubmit}>
@@ -98,23 +117,7 @@ export default function RegisterForm() {
                 id="profilePic" 
                 name="profilePic" 
                 type="file" 
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  try {
-                    if (e.target.files?.[0]) {
-                      const file = e.target.files[0];
-                      const validExtensions = [".png", ".jpeg", ".jpg"];
-                      const fileExtension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
-                      if (!validExtensions.includes(fileExtension)) {
-                        throw new Error("Please upload a valid image file (png, jpeg, jpg, gif).");
-                      }
-                      set_profile_pic(URL.createObjectURL(file));
-                    } else {
-                      set_profile_pic("");
-                    }
-                  } catch (error) {
-                    setErrorMessage((error as Error).message);
-                  }
-                }} 
+                onChange={convertToBase64}
                 className="block w-full text-gray-900"
               />
             </div>

@@ -5,9 +5,11 @@ import Image from 'next/image';
 
 import LogOutButton from '../ui/logout-button';
 import image from '../../../public/logo_handcraftedhaven.png';
+import Cookies from 'js-cookie';
 
 
 export default function Header() {
+    const isLoggedIn = Cookies.get('token')
     const [isMobile, setIsMobile] = useState(false);
     const currentPath = usePathname();
 
@@ -33,7 +35,7 @@ export default function Header() {
     const navLinks = [
         { path: '/', label: 'Home' },
         { path: '/cards', label: 'Products' },
-        { path: '/profile', label: 'Profile' }
+        { path: isLoggedIn?'/profile':'login', label: 'Profile' }
     ];
 
     console.log(currentPath);
@@ -48,10 +50,10 @@ export default function Header() {
                         <li key={link.path}><a href={link.path}>{link.label}</a></li>
                     ))}
                 </ul>
-                {isMobile &&  currentPath === '/login' || currentPath === '/register' ?'' :<div class='login-button' style={{minWidth: isMobile? '70px': '165'}}><LogOutButton /></div> }
+                {isMobile && ( currentPath === '/login' || currentPath === '/register' ?'' :<div class='login-button' style={{minWidth: isMobile? '70px': '165'}}><LogOutButton isLoggedIn/></div> )}
             </nav>
 
-            { currentPath === '/login' || currentPath === '/register' ?'' : !isMobile?<div class='login-button' style={{minWidth: isMobile? '70px': '165'}}><LogOutButton /></div> : ''}
+            {!isMobile &&( currentPath === '/login' || currentPath === '/register' ?'' : <div class='login-button' style={{minWidth: isMobile? '70px': '165'}}><LogOutButton isLoggedIn /></div> )}
             {isMobile && <button class='menu-button' onClick={toggleMenu} style={{ alignSelf: 'flex-end', backgroundColor: 'transparent', fontSize:'2em', position:'absolute', right: '20px'}}>
                 ☰
             </button>}

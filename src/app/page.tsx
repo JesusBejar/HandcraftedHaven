@@ -4,26 +4,35 @@ import React , {useState, useEffect} from "react";
 
 import SellerCard from "./components/SellerCard";
 
-// const sellers = [
-//  {
-//   img: 'https://assets.weforum.org/article/image/responsive_big_webp_RZ1E1wABkNXxD1b1rOO49bmLKLAsN7k85jQwVYsBOkw.webp',
-//   sellerName: "Sally's Soap",
-//   sellerCategory: "Soap",
-//  },
-//   {
-//     img: 'https://assets.weforum.org/article/image/responsive_big_webp_RZ1E1wABkNXxD1b1rOO49bmLKLAsN7k85jQwVYsBOkw.webp',
-//     sellerName: "Jenny's Jewelry",
-//     sellerCategory: "Jewelry",
-//   },
-//   {
-//     img: 'https://assets.weforum.org/article/image/responsive_big_webp_RZ1E1wABkNXxD1b1rOO49bmLKLAsN7k85jQwVYsBOkw.webp',
-//     sellerName: "Tom's T-Shirts",
-//     sellerCategory: "Clothing",
-//   }
-// ];
+interface Sellers {
+  seller_details: {
+    category: string;
+    business_name: string;
+    bus_description: string;
+  };
+  profile_img: string;
+}
+
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
+  const [sellers, setSellers] = useState<Sellers[]>([]);
+
+
+  useEffect(() => {
+  async function fetchCardData() {
+    try {
+      const response = await fetch('/api/getAllSellers');
+      const data = await response.json();
+      console.log(data);
+      setSellers(data);
+    } catch (error) {
+      console.error('Error fetching card data:', error);
+    }
+  }
+
+  fetchCardData();
+  }, []);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -45,10 +54,10 @@ export default function Home() {
       <div style={{ display: 'flex', margin: '0 auto', flexDirection: isMobile? 'column' : 'row' , paddingTop:'20px', paddingBottom:'20px'}}>
       {sellers.map((seller) => (
       <SellerCard
-        key={seller.sellerName}
-        sellerName={seller.sellerName}
-        sellerCategory={seller.sellerCategory}
-        sellerImg={seller.img}
+        key={seller.seller_details.business_name}
+        sellerName={seller.seller_details.business_name}
+        sellerCategory={seller.seller_details.category}
+        sellerImg={seller.profile_img}
       />
       ))}
       </div>
