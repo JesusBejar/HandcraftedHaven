@@ -3,11 +3,13 @@ import dbConnect from '@/src/db/db';
 import Comment from '@/src/models/commentModels';
 import mongoose from 'mongoose';
 
-export async function PUT(req: Request, context: { params?: { id?: string } }) {
+export async function PUT(req: Request) {
   try {
     await dbConnect();
 
-    const id = context.params?.id;
+    // Extract user ID from the query parameters
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id'); // Assumin
 
     // Check if the ID is a valid ObjectId
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {

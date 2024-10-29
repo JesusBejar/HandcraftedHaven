@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {ObjectId} from "mongodb";
 
 const productSchema = new mongoose.Schema({
@@ -22,6 +23,10 @@ const productSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    price: {
+        type: Number,
+        required: true,
     },
 });
 

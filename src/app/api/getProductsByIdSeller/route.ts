@@ -22,6 +22,7 @@ export async function GET(req: Request, { params }: { params: { idSeller: string
     }
 
     return NextResponse.json({ products }, { status: 200 });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({ msg: 'Failed to fetch products'}, { status: 500 });
   }
