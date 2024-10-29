@@ -17,7 +17,7 @@
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
-    "mongoose": "^8.7.0",
+    "mongoose": "^8.7.3",
     "next": "15.0.0-canary.56",
     "next-auth": "5.0.0-beta.22",
     "node-ts": "^6.1.3",

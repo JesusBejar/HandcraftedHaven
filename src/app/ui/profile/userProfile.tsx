@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './UserProfile.module.css';
+import styles from './userProfile.module.css';
 import Link from 'next/link';
 import { User } from '../../lib/definitions';
 

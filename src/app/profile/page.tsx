@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import UserProfile from '../ui/profile/userProfile';
 import CommentsList from '../ui/comments/commentsList';
 import { User, Comment } from '../lib/definitions';
+import NewComment from '../ui/comments/newComment';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
@@ -78,7 +79,6 @@ export default function ProfilePage() {
 
       const result = await response.json();
       if (result.msg === 'Comment updated successfully') {
-        // Update the comments state with the new data
         setComments((prevComments) =>
           prevComments.map((comment) =>
             comment._id === commentId ? { ...comment, comment: updatedComment, updatedAt: new Date() } : comment
@@ -100,13 +100,47 @@ export default function ProfilePage() {
 
       const result = await response.json();
       if (result.msg === 'Comment deleted successfully') {
-        // Update the comments state to remove the deleted comment
         setComments((prevComments) => prevComments.filter(comment => comment._id !== commentId));
       } else {
         console.error(result.msg);
       }
     } catch (error) {
       console.error("Error deleting comment:", error);
+    }
+  };
+  const handleNewComment = async (comment: string, rating: number) => {
+    const userId = localStorage.getItem("_id");
+    if (!userId) {
+      console.error("User ID not found in localStorage");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/addComment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: '671b78e313fcb07b6b449243', // Dynamic product ID if needed
+          userId,
+          username: user?.username || '',
+          comment,
+          rating,
+        }),
+      });
+
+      // check if the response is 200
+      if (!response.ok) {
+        console.error("Server responded with an error:", response.status);
+        return;
+      }
+
+      const data = await response.json();
+
+      // Update the comments state with the new comment so that will be on top
+      setComments((prevComments) => [data.comment, ...prevComments]); // Add the new comment at the top
+
+    } catch (error) {
+      console.error("Error adding comment:", error);
     }
   };
 
@@ -117,12 +151,8 @@ export default function ProfilePage() {
   return (
     <>
       <UserProfile user={user} />
-      <CommentsList
-        comments={comments}
-        loggedInUserId={user._id}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <NewComment onCommentSubmit={handleNewComment} />
+      <CommentsList comments={comments} loggedInUserId={user._id} onEdit={handleEdit} onDelete={handleDelete} />
     </>
   );
 }
