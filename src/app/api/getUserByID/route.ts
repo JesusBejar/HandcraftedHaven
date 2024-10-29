@@ -19,9 +19,10 @@ export async function GET(req: Request) {
       return NextResponse.json({ msg: "User not found" }, { status: 404 });
     }
 
-    // Destructure data, leaving out the password
-    const { password, ...userData } = user.toObject();
-    return NextResponse.json(userData, { status: 200 });
+        // Return user data (excluding password for security)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...userData } = user.toObject();
+        return NextResponse.json(userData, { status: 200 });
 
   } catch (err) {
     return NextResponse.json({ msg: "Internal server error", error: err }, { status: 500 });

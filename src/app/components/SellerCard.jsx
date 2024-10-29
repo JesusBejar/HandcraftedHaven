@@ -1,12 +1,15 @@
 import React from 'react';
 
 
-export default function SellerCard({ sellerName, sellerCategory, sellerImg }) {
+export default function SellerCard({ sellerName, sellerCategory, sellerImg, _id, sellerDescription }) {
     return (
-        <div style={{maxWidth: '300px', maxHeight:'400px', boxShadow: '1px 1px 5px grey', padding:'20px', borderRadius: '10px', margin:'10px', alignSelf: 'center'}}>
-            <img src={sellerImg} alt={sellerName} style={{borderRadius:'10px', width:'200px', height:'150px'}}/> 
-            <h2>{sellerName}</h2>
+        
+        <div style={{width: '300px', height:'420px', boxShadow: '1px 1px 5px grey', borderRadius: '10px', alignSelf: 'center', margin:'10px'}}>
+            <div alt={sellerName} style={{borderRadius:'10px 10px 0px 0px', width:'300px', height:'200px', backgroundImage: `url(${sellerImg})`, backgroundSize:'cover', backgroundPosition:'center', margin:'0'}}/> 
+            <h2 style={{fontSize:'1em', fontWeight:'bold'}}>{sellerName.toUpperCase()}</h2>
             <p>{sellerCategory}</p>
-        </div>
-    );
+           <button><a href={`/profile/${_id}`}>Visit Their Page</a></button>
+</div>
+        
+    )
 }

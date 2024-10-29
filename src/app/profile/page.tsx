@@ -35,8 +35,8 @@ export default function ProfilePage() {
           categories: data.seller_details && data.seller_details.business_name 
               ? [data.seller_details.category] 
               : [],
-          business_name: data.seller_details ? data.seller_details.business_name : '',
-          bus_description: data.seller_details ? data.seller_details.bus_description : ''
+          seller_details:{business_name: data.seller_details ? data.seller_details.business_name : '',
+          bus_description: data.seller_details ? data.seller_details.bus_description : ''}
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
