@@ -16,7 +16,7 @@ export async function POST (req: Request) {
     const {username, email, password, is_seller, profile_img, profile_description, seller_details} = body; 
     console.log(body);
     // Validate input
-    if (!email || !password || !username || !profile_img || !profile_description || !seller_details || !is_seller) {
+    if (!email || !password || !username || !profile_description || !seller_details || !is_seller) {
       return NextResponse.json({ msg: "Please provide all required fields" }, { status: 400 });
     }
  
