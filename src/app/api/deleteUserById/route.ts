@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from '@/src/db/db';
 import User from '@/src/models/userModels';
 
-export async function DELETE (req: Request) {
+export async function DELETE(req: Request) {
     try {
         // Connect to the database
         await dbConnect();

@@ -18,7 +18,6 @@ export async function POST(req: Request) {
         return NextResponse.json({ msg: 'Comment added successfully', comment: newComment }, { status: 201 });
     } catch (error) {
         console.error('Error adding comment:', error);
-        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-        return NextResponse.json({ msg: 'Failed to add comment', error: errorMessage }, { status: 500 });
+        return NextResponse.json({ msg: 'Failed to add comment', error }, { status: 500 });
     }
 }

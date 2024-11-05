@@ -22,6 +22,7 @@ export default function LogoutButton() {
 
       // Redirect to login page
       router.push("/login");
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setErrorMessage("Logout failed. Please try again.");
     } finally {
@@ -32,11 +33,11 @@ export default function LogoutButton() {
   return (
     <div>
       <button
-        onClick={handleLogout} // Handle click event
+        onClick={handleLogout } // Handle click event
         disabled={isLoading} // Disable button when loading
         className="rounded py-2 px-4 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-        {isLoading ? 'Loading...' : 'Logout'}
+        {isLoading ? 'Loading...' :'Logout'}
       </button>
 
       {/* Display error message if logout fails */}

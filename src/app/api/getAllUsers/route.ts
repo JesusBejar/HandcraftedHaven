@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import dbConnect from '@/src/db/db';
 import User from '@/src/models/userModels';
-import bcrypt from 'bcrypt'; 
 // bcrypt is used to hash passwords
 // GET, get all
-
-export async function GET (req: Request) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function GET(req: Request) {
     try {
         await dbConnect(); // Ensure the database connection is established
  

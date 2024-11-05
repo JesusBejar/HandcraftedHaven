@@ -33,11 +33,11 @@ export default function ProfilePage() {
           profile_img: data.profile_img,
           profile_description: data.profile_description,
           is_seller: data.is_seller,
-          categories: data.seller_details && data.seller_details.business_name
-            ? [data.seller_details.category]
-            : [],
-          business_name: data.seller_details ? data.seller_details.business_name : '',
-          bus_description: data.seller_details ? data.seller_details.bus_description : ''
+          categories: data.seller_details && data.seller_details.business_name 
+              ? [data.seller_details.category] 
+              : [],
+          seller_details:{business_name: data.seller_details ? data.seller_details.business_name : '',
+          bus_description: data.seller_details ? data.seller_details.bus_description : ''}
         });
       } catch (error) {
         console.error("Error fetching user data:", error);

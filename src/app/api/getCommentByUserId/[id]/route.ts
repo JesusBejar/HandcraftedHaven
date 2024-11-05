@@ -5,11 +5,13 @@ import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 // Get comments by userId
-export async function GET(req: Request, context: { params?: { id?: string } }) {
+export async function GET(req: Request) {
   try {
     await dbConnect();
 
-    const userId = context.params?.id;
+    // Extract user ID from the query parameters
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get('id'); // Assumin
     console.log(userId);
 
    // Check if userId is provided and valid

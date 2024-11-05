@@ -7,10 +7,10 @@ export async function POST(req: Request) {
     await dbConnect();
 
     const body = await req.json(); // Parse the request body
-    const { idSeller, title, description, imageUrl } = body;
+    const { idSeller, title, description, imageUrl, price } = body;
 
     // Validate the input
-    if (!idSeller || !title || !description || !imageUrl) {
+    if (!idSeller || !title || !description || !imageUrl || !price) {
       return NextResponse.json({ msg: 'All fields are required' }, { status: 400 });
     }
 
@@ -20,6 +20,7 @@ export async function POST(req: Request) {
       title,
       description,
       imageUrl,
+      price,
       createdAt: new Date(), // Optional: set createdAt to current date
     });
 

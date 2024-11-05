@@ -4,12 +4,12 @@ import Product from '@/src/models/productModels';
 import User from '@/src/models/userModels'; // Ensure the path is correct
 
 // PATCH route to edit a product
-export async function PATCH(req: Request) {
+export async function PUT(req: Request) {
   try {
     await dbConnect();
 
     const body = await req.json();
-    const { userId, productId, title, description, imageUrl } = body;
+    const { userId, productId, title, description, imageUrl, price} = body;
 
     if (!userId || !productId) {
       return NextResponse.json({ msg: 'User ID and Product ID are required' }, { status: 400 });
@@ -24,7 +24,7 @@ export async function PATCH(req: Request) {
     // Find and update the product
     const updatedProduct = await Product.findOneAndUpdate(
       { _id: productId, idSeller: userId },
-      { title, description, imageUrl, updatedAt: new Date() },
+      { title, description, imageUrl, price, updatedAt: new Date() },
       { new: true }
     );
 

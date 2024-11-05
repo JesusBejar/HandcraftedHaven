@@ -3,7 +3,7 @@ import dbConnect from '@/src/db/db';
 import Comment from '@/src/models/commentModels';
 import mongoose from 'mongoose';
 
-export async function GET (req: Request) {
+export async function GET(req: Request) {
     try {
         // Connect to the database
         await dbConnect();

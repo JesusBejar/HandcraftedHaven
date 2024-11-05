@@ -4,12 +4,12 @@ import Comment from '@/src/models/commentModels';
 import mongoose from 'mongoose';
 
 // Get comments by product ID (productId)
-export async function GET(req: Request, context: { params?: { id?: string } }) {
+export async function GET(req: Request) {
   try {
     await dbConnect();
 
-    const productId = context.params?.id; // Get the productId from the request params
-    console.log(productId);
+    const { searchParams } = new URL(req.url);
+    const productId = searchParams.get('id'); // Assuming you pass the user ID as a query parameter
 
     // Check if productId is provided and valid
     if (!productId || !mongoose.Types.ObjectId.isValid(productId)) {
